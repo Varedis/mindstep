@@ -7,14 +7,14 @@ Discover who has super powers with the power of coding and algorithms!
 - [TypeScript][typescript] [4.8][typescript-4-8]
 - [ESM][esm]
 - [ESLint][eslint] with some initial rules recommendation
-- [Jest][jest] for fast unit testing and code coverage
-- Type definitions for Node.js and Jest
+- [Vitest][vitest] for fast unit testing and code coverage
+- Type definitions for Node.js
 - [Prettier][prettier] to enforce consistent code style
 - NPM [scripts](#available-scripts) for common operations
 - [EditorConfig][editorconfig] for consistent coding style
 - Reproducible environments thanks to [Volta][volta]
 - Example configuration for [GitHub Actions][gh-actions]
-- [Husky] for ensuring consistent commits and standards
+- [Husky][husky] for ensuring consistent commits and standards
 
 ## Getting Started
 
@@ -24,7 +24,7 @@ I recommend to [install][volta-getting-started] Volta which will handle ensuring
 
 ## Available Scripts
 
-- `clean` - remove coverage data, Jest cache and transpiled files,
+- `clean` - remove coverage data, coverage and transpiled files,
 - `prebuild` - lint source files and tests before building,
 - `build` - transpile TypeScript to ES6,
 - `build:watch` - interactive watch mode to automatically transpile source files,
@@ -35,7 +35,7 @@ I recommend to [install][volta-getting-started] Volta which will handle ensuring
 
 ## Additional Information
 
-[jest]: https://facebook.github.io/jest/
+[vitest]: https://vitest.dev/
 [eslint]: https://github.com/eslint/eslint
 [wiki-js-tests]: https://github.com/jsynowiec/node-typescript-boilerplate/wiki/Unit-tests-in-plain-JavaScript
 [prettier]: https://prettier.io

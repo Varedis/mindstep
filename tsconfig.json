@@ -6,6 +6,7 @@
     "moduleResolution": "NodeNext",
     "rootDir": ".",
     "outDir": "build",
+    "types": ["vitest/globals"],
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "alwaysStrict": true,
@@ -17,7 +18,8 @@
     "noUnusedParameters": true,
     "noImplicitAny": true,
     "noImplicitThis": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }
