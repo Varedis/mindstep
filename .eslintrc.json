@@ -10,11 +10,10 @@
     "sourceType": "module",
     "ecmaVersion": "latest"
   },
-  "plugins": ["@typescript-eslint", "jest"],
+  "plugins": ["@typescript-eslint", "vitest"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
     "prettier"
   ]
 }
