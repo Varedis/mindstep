@@ -1,5 +1,5 @@
 import type { User } from "./data.js";
-import { calculateInvisibilityScore } from "./lib.js";
+import { calculateInvisibilityScore, getInvisibilityStatus } from "./lib.js";
 
 /**
  * Takes a superhero test score and saves the invisibility result to a csv file
@@ -8,12 +8,16 @@ import { calculateInvisibilityScore } from "./lib.js";
  */
 export const getInvisibilityScore = (superheroTestScore: number): void => {
   // TODO: Fetch actual user
-  const user: User = { gender: "male", age: 30 };
+  const user: User = { gender: "male", age: 20 };
 
   // Calculate the invisibility score
-  const invisibiltyScore = calculateInvisibilityScore(superheroTestScore, user);
+  const invisibilityScore = calculateInvisibilityScore(
+    superheroTestScore,
+    user
+  );
 
-  // TODO: Calculate invis status
+  // Get the invisibility status
+  const invisibilityStatus = getInvisibilityStatus(invisibilityScore);
 
   // TODO: Press results into csv
 };

@@ -1,8 +1,9 @@
-import { calculateInvisibilityScore } from "./lib.js";
+import { calculateInvisibilityScore, getInvisibilityStatus } from "./lib.js";
 import { getInvisibilityScore } from "./main.js";
 
 vi.mock("./lib.js", () => ({
   calculateInvisibilityScore: vi.fn().mockReturnValue(50),
+  getInvisibilityStatus: vi.fn().mockReturnValue("Translucent"),
 }));
 
 describe("getInvisibilityScore", () => {
@@ -13,11 +14,15 @@ describe("getInvisibilityScore", () => {
 
     expect(calculateInvisibilityScore).toHaveBeenCalledWith(30, {
       gender: "male",
-      age: 30,
+      age: 20,
     });
   });
 
-  test.todo("it calls getInvisibilityStatus");
+  test("it calls getInvisibilityStatus", () => {
+    getInvisibilityScore(30);
+
+    expect(getInvisibilityStatus).toHaveBeenCalledWith(50);
+  });
 
   test.todo("it calls generateCsv");
 });
