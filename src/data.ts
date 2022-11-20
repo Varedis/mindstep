@@ -1,3 +1,6 @@
+// Whilst fetch is now native in Node 18, no one really supports mocking it out yet, so import this for now
+import { fetch } from "cross-fetch";
+
 export type User = {
   gender: "male" | "female";
   name: { title: string; first: string; last: string };
@@ -5,8 +8,8 @@ export type User = {
 };
 
 export const fetchUser = async (): Promise<User> => {
-  return {
-    gender: "male",
-    age: 20,
-  };
+  const getUser = await fetch("https://randomuser.me/api");
+  const userResponse = await getUser.json();
+
+  return userResponse.results[0] as User;
 };
