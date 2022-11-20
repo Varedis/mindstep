@@ -1,29 +1,19 @@
-/**
- * Some predefined delay values (in milliseconds).
- */
-export enum Delays {
-  Short = 500,
-  Medium = 2000,
-  Long = 5000,
-}
+import type { User } from "./data.js";
+import { calculateInvisibilityScore } from "./lib.js";
 
 /**
- * Returns a Promise<string> that resolves after a given time.
- *
- * @param {string} name - A name.
- * @param {number=} [delay=Delays.Medium] - A number of milliseconds to delay resolution of the Promise.
- * @returns {Promise<string>}
- */
-function delayedHello(
-  name: string,
-  delay: number = Delays.Medium
-): Promise<string> {
-  return new Promise((resolve: (value?: string) => void) =>
-    setTimeout(() => resolve(`Hello, ${name}`), delay)
-  );
-}
+ * Takes a superhero test score and saves the invisibility result to a csv file
 
-export async function greeter(name: any) {
-  // The name parameter should be of type string. Any is used only to trigger the rule.
-  return await delayedHello(name, Delays.Long);
-}
+ * @param {number} superheroTestScore the superhero test score result
+ */
+export const getInvisibilityScore = (superheroTestScore: number): void => {
+  // TODO: Fetch actual user
+  const user: User = { gender: "male", age: 30 };
+
+  // Calculate the invisibility score
+  const invisibiltyScore = calculateInvisibilityScore(superheroTestScore, user);
+
+  // TODO: Calculate invis status
+
+  // TODO: Press results into csv
+};
