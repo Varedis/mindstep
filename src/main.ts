@@ -1,4 +1,4 @@
-import type { User } from "./data.js";
+import { fetchUser } from "./data.js";
 import { calculateInvisibilityScore, getInvisibilityStatus } from "./lib.js";
 
 /**
@@ -6,9 +6,11 @@ import { calculateInvisibilityScore, getInvisibilityStatus } from "./lib.js";
 
  * @param {number} superheroTestScore the superhero test score result
  */
-export const getInvisibilityScore = (superheroTestScore: number): void => {
-  // TODO: Fetch actual user
-  const user: User = { gender: "male", age: 20 };
+export const getInvisibilityScore = async (
+  superheroTestScore: number
+): Promise<void> => {
+  // Fetch the user data
+  const user = await fetchUser();
 
   // Calculate the invisibility score
   const invisibilityScore = calculateInvisibilityScore(
