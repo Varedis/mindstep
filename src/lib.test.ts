@@ -6,15 +6,15 @@ import {
 
 describe("getGenderModifier", () => {
   test("for a male it returns 5", () => {
-    expect(getGenderModifier({ gender: "male", age: 30 })).toEqual(5);
+    expect(getGenderModifier("male")).toEqual(5);
   });
 
   test("for a female it returns 8", () => {
-    expect(getGenderModifier({ gender: "female", age: 30 })).toEqual(8);
+    expect(getGenderModifier("female")).toEqual(8);
   });
 
   test("for an unknown gender it returns an error", () => {
-    expect(() => getGenderModifier({ gender: null, age: 30 })).toThrow(
+    expect(() => getGenderModifier(null)).toThrow(
       new Error("Couldn't find a modifier for null")
     );
   });
@@ -33,7 +33,11 @@ describe("calculateInvisibilityScore", () => {
       "with superhero score of {$superheroScore} and an age of {$age} it returns {$score}",
       ({ superheroScore, age, score }) => {
         expect(
-          calculateInvisibilityScore(superheroScore, { gender: "male", age })
+          calculateInvisibilityScore(superheroScore, {
+            gender: "male",
+            name: { title: "Mr", first: "Svitomir", last: "G'ereta" },
+            dob: { date: "2022-01-01T00:00:00.000Z", age },
+          })
         ).toEqual(score);
       }
     );
@@ -51,7 +55,11 @@ describe("calculateInvisibilityScore", () => {
       "with superhero score of {$superheroScore} and an age of {$age} it returns {$score}",
       ({ superheroScore, age, score }) => {
         expect(
-          calculateInvisibilityScore(superheroScore, { gender: "female", age })
+          calculateInvisibilityScore(superheroScore, {
+            gender: "female",
+            name: { title: "Mrs", first: "Matilda", last: "Ranta" },
+            dob: { date: "2022-01-01T00:00:00.000Z", age },
+          })
         ).toEqual(score);
       }
     );

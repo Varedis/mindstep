@@ -16,14 +16,14 @@ enum InvisibilityStatus {
 /**
  * Takes a user and returns the gender modifier
  *
- * @param {User} user the user of the test
+ * @param {string} gender the gender of the user of the test
  * @returns {number} the gender modifier
  */
-export const getGenderModifier = (user: User): number => {
-  const modifier = GenderModifier[user.gender];
+export const getGenderModifier = (gender: User["gender"]): number => {
+  const modifier = GenderModifier[gender];
 
   if (!modifier) {
-    throw new Error(`Couldn't find a modifier for ${user.gender}`);
+    throw new Error(`Couldn't find a modifier for ${gender}`);
   }
 
   return modifier;
@@ -40,7 +40,8 @@ export const calculateInvisibilityScore = (
   superheroTestScore: number,
   user: User
 ): number => {
-  let score = getGenderModifier(user) * (superheroTestScore - user.age);
+  let score =
+    getGenderModifier(user.gender) * (superheroTestScore - user.dob.age);
 
   if (score < 0) score = 0;
   if (score > 100) score = 100;

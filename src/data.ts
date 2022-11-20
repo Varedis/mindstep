@@ -1,6 +1,7 @@
 export type User = {
   gender: "male" | "female";
-  age: number;
+  name: { title: string; first: string; last: string };
+  dob: { date: string; age: number };
 };
 
 export const fetchUser = async (): Promise<User> => {

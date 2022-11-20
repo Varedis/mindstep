@@ -3,7 +3,11 @@ import { calculateInvisibilityScore, getInvisibilityStatus } from "./lib.js";
 import { getInvisibilityScore } from "./main.js";
 
 vi.mock("./data.js", () => ({
-  fetchUser: vi.fn().mockResolvedValue({ gender: "male", age: 20 }),
+  fetchUser: vi.fn().mockResolvedValue({
+    gender: "male",
+    name: { title: "Mr", first: "Svitomir", last: "G'ereta" },
+    dob: { date: "1989-01-01T00:00:00.000Z", age: "30" },
+  }),
 }));
 
 vi.mock("./lib.js", () => ({
@@ -23,7 +27,8 @@ describe("getInvisibilityScore", () => {
 
     expect(calculateInvisibilityScore).toHaveBeenCalledWith(30, {
       gender: "male",
-      age: 20,
+      name: { title: "Mr", first: "Svitomir", last: "G'ereta" },
+      dob: { date: "1989-01-01T00:00:00.000Z", age: "30" },
     });
   });
 
