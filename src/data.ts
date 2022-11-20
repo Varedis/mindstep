@@ -13,3 +13,11 @@ export const fetchUser = async (): Promise<User> => {
 
   return userResponse.results[0] as User;
 };
+
+export const generateCsv = (
+  user: User,
+  invisibilityScore: number,
+  invisibilityStatus: string
+): void => {
+  return void 0;
+};

@@ -1,4 +1,4 @@
-import { fetchUser } from "./data.js";
+import { fetchUser, generateCsv } from "./data.js";
 import { calculateInvisibilityScore, getInvisibilityStatus } from "./lib.js";
 
 /**
@@ -21,5 +21,9 @@ export const getInvisibilityScore = async (
   // Get the invisibility status
   const invisibilityStatus = getInvisibilityStatus(invisibilityScore);
 
-  // TODO: Press results into csv
+  // Parse the results into csv
+  await generateCsv(user, invisibilityScore, invisibilityStatus);
 };
+
+// for Testing
+// await getInvisibilityScore(52.56)
