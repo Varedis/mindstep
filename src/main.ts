@@ -29,6 +29,3 @@ export const getInvisibilityScore = async (
     invisibilityStatus
   );
 };
-
-// for Testing
-// await getInvisibilityScore(52.56)
