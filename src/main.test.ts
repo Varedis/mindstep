@@ -44,6 +44,6 @@ describe("getInvisibilityScore", () => {
   test("it calls generateCsv", async () => {
     await getInvisibilityScore(30);
 
-    expect(generateCsv).toHaveBeenCalledWith(user, 50, "Translucent");
+    expect(generateCsv).toHaveBeenCalledWith(user, 30, 50, "Translucent");
   });
 });

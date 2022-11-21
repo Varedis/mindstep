@@ -1,6 +1,13 @@
+import jsonexport from "jsonexport";
 import { setupServer } from "msw/node";
 import { rest } from "msw";
-import { fetchUser } from "./data.js";
+import { writeFile } from "node:fs/promises";
+import { MockInstance } from "vitest";
+import { fetchUser, generateCsv } from "./data.js";
+import type { User } from "./data.js";
+
+vi.mock("node:fs/promises");
+vi.mock("jsonexport");
 
 const response = {
   results: [
@@ -68,5 +75,20 @@ describe("fetchUser", () => {
 });
 
 describe("generateCsv", () => {
-  test.todo("it takes a json string and returns a csv");
+  test("it takes a json string and returns a csv", async () => {
+    const expectedCsv = "test1,test2\nvalue1,value2";
+    (jsonexport as unknown as MockInstance).mockResolvedValue(expectedCsv);
+
+    const expectedData = {
+      ...response.results[0],
+      superheroTestScore: 20,
+      invisibilityScore: 50,
+      invisibilityStatus: "Translucent",
+    };
+
+    await generateCsv(response.results[0] as User, 20, 50, "Translucent");
+
+    expect(jsonexport).toHaveBeenCalledWith([expectedData]);
+    expect(writeFile).toHaveBeenCalledWith("./result.csv", expectedCsv);
+  });
 });

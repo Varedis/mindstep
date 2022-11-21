@@ -22,7 +22,12 @@ export const getInvisibilityScore = async (
   const invisibilityStatus = getInvisibilityStatus(invisibilityScore);
 
   // Parse the results into csv
-  await generateCsv(user, invisibilityScore, invisibilityStatus);
+  await generateCsv(
+    user,
+    superheroTestScore,
+    invisibilityScore,
+    invisibilityStatus
+  );
 };
 
 // for Testing
