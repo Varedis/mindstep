@@ -2,6 +2,7 @@ import {
   calculateInvisibilityScore,
   getGenderModifier,
   getInvisibilityStatus,
+  normaliseScore,
 } from "./lib.js";
 
 describe("getGenderModifier", () => {
@@ -23,10 +24,10 @@ describe("getGenderModifier", () => {
 describe("calculateInvisibilityScore", () => {
   describe("for a male", () => {
     const cases = [
-      { superheroScore: 10, age: 20, score: 0 },
-      { superheroScore: 30, age: 20, score: 50 },
-      { superheroScore: 25.52, age: 20, score: 27 },
-      { superheroScore: 100, age: 20, score: 100 },
+      { superheroScore: 10, age: 20, score: 45 },
+      { superheroScore: 30, age: 20, score: 55 },
+      { superheroScore: 25.52, age: 20, score: 52 },
+      { superheroScore: 100, age: 20, score: 90 },
     ];
 
     test.each(cases)(
@@ -45,10 +46,10 @@ describe("calculateInvisibilityScore", () => {
 
   describe("for a female", () => {
     const cases = [
-      { superheroScore: 10, age: 20, score: 0 },
-      { superheroScore: 30, age: 20, score: 80 },
-      { superheroScore: 25.52, age: 20, score: 44 },
-      { superheroScore: 100, age: 20, score: 100 },
+      { superheroScore: 10, age: 20, score: 45 },
+      { superheroScore: 30, age: 20, score: 55 },
+      { superheroScore: 25.52, age: 20, score: 52 },
+      { superheroScore: 100, age: 20, score: 90 },
     ];
 
     test.each(cases)(
@@ -64,6 +65,28 @@ describe("calculateInvisibilityScore", () => {
       }
     );
   });
+});
+
+describe("normaliseScore", () => {
+  const cases = [
+    { score: 0, genderModifier: 5, expected: 50 },
+    { score: -500, genderModifier: 5, expected: 0 },
+    { score: -300, genderModifier: 5, expected: 0 },
+    { score: 450, genderModifier: 5, expected: 95 },
+    { score: 500, genderModifier: 5, expected: 100 },
+    { score: 0, genderModifier: 8, expected: 50 },
+    { score: -800, genderModifier: 8, expected: 0 },
+    { score: -500, genderModifier: 8, expected: 0 },
+    { score: 750, genderModifier: 8, expected: 96 },
+    { score: 800, genderModifier: 8, expected: 100 },
+  ];
+
+  test.each(cases)(
+    "with score {$score} and modifier {$genderModifier} it should normalise to {$expected}",
+    ({ score, genderModifier, expected }) => {
+      expect(normaliseScore(score, genderModifier)).toEqual(expected);
+    }
+  );
 });
 
 describe("getInvisibilityStatus", () => {

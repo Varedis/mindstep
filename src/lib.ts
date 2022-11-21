@@ -40,13 +40,33 @@ export const calculateInvisibilityScore = (
   superheroTestScore: number,
   user: User
 ): number => {
-  let score =
-    getGenderModifier(user.gender) * (superheroTestScore - user.dob.age);
+  const genderModifier = getGenderModifier(user.gender);
+  const score = genderModifier * (superheroTestScore - user.dob.age);
 
-  if (score < 0) score = 0;
-  if (score > 100) score = 100;
+  return normaliseScore(score, genderModifier);
+};
 
-  return Math.floor(score);
+/**
+ * Takes a test score between -NNN..NNN and normalises it to 0..100
+ *
+ * @param {number} score the superhero test score
+ * @param {GenderModifier} genderModifier the gender modifier used for the user
+ * @returns {number} the normalised test score
+ */
+export const normaliseScore = (
+  score: number,
+  genderModifier: GenderModifier
+): number => {
+  const max = genderModifier * 100;
+  const min = -max;
+
+  // Normalise the score to 0..1
+  let normalisedScore = (score - min) / (max - min);
+
+  // Flatten out the super low numbers so that we don't overestimate peoples abilities just because they are older
+  if (normalisedScore <= 0.2) normalisedScore = 0;
+
+  return Math.floor(normalisedScore * 100);
 };
 
 /**
