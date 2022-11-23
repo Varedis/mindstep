@@ -51,9 +51,15 @@ const response = {
 };
 
 const restHandlers = [
-  rest.get("https://randomuser.me/api", (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(response));
-  }),
+  rest.get("https://randomuser.me/api", (_req, res, ctx) =>
+    res(ctx.status(200), ctx.json(response))
+  ),
+];
+
+const errorHandlers = [
+  rest.get("https://randomuser.me/api", (_req, res, ctx) =>
+    res(ctx.status(500), ctx.json(null))
+  ),
 ];
 
 const server = setupServer(...restHandlers);
@@ -71,7 +77,11 @@ describe("fetchUser", () => {
     expect(res).toEqual(response.results[0]);
   });
 
-  test.todo("if the api is down it throws an error");
+  test("if the api is down it throws an error", async () => {
+    server.use(...errorHandlers);
+
+    await expect(fetchUser()).rejects.toThrowError("User not found");
+  });
 });
 
 describe("generateCsv", () => {

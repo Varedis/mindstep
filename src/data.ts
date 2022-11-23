@@ -16,6 +16,9 @@ export type User = {
  */
 export const fetchUser = async (): Promise<User> => {
   const getUser = await fetch("https://randomuser.me/api");
+
+  if (!getUser.ok) throw new Error("User not found");
+
   const userResponse = await getUser.json();
 
   return userResponse.results[0] as User;
