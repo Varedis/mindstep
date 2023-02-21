@@ -1,37 +1,49 @@
-import { Delays, greeter } from "./main.js";
+import { fetchUser, generateCsv } from "./data.js";
+import { calculateInvisibilityScore, getInvisibilityStatus } from "./lib.js";
+import { getInvisibilityScore } from "./main.js";
 
-describe("greeter function", () => {
-  const name = "John";
-  let hello: string;
+vi.mock("./data.js", () => ({
+  fetchUser: vi.fn().mockResolvedValue({
+    gender: "male",
+    name: { title: "Mr", first: "Svitomir", last: "G'ereta" },
+    dob: { date: "1989-01-01T00:00:00.000Z", age: "30" },
+  }),
+  generateCsv: vi.fn(),
+}));
 
-  let timeoutSpy: jest.SpyInstance;
+vi.mock("./lib.js", () => ({
+  calculateInvisibilityScore: vi.fn().mockReturnValue(50),
+  getInvisibilityStatus: vi.fn().mockReturnValue("Translucent"),
+}));
 
-  // Act before assertions
-  beforeAll(async () => {
-    jest.useFakeTimers();
-    timeoutSpy = jest.spyOn(global, "setTimeout");
+const user = {
+  gender: "male",
+  name: { title: "Mr", first: "Svitomir", last: "G'ereta" },
+  dob: { date: "1989-01-01T00:00:00.000Z", age: "30" },
+};
 
-    const p: Promise<string> = greeter(name);
-    jest.runOnlyPendingTimers();
-    hello = await p;
+describe("getInvisibilityScore", () => {
+  test("it calls fetchUser", async () => {
+    await getInvisibilityScore(30);
+
+    expect(fetchUser).toHaveBeenCalledOnce();
   });
 
-  // Teardown (cleanup) after assertions
-  afterAll(() => {
-    timeoutSpy.mockRestore();
+  test("it calls calculateInvisibilityScore", async () => {
+    await getInvisibilityScore(30);
+
+    expect(calculateInvisibilityScore).toHaveBeenCalledWith(30, user);
   });
 
-  // Assert if setTimeout was called properly
-  it("delays the greeting by 2 seconds", () => {
-    expect(setTimeout).toHaveBeenCalledTimes(1);
-    expect(setTimeout).toHaveBeenLastCalledWith(
-      expect.any(Function),
-      Delays.Long
-    );
+  test("it calls getInvisibilityStatus", async () => {
+    await getInvisibilityScore(30);
+
+    expect(getInvisibilityStatus).toHaveBeenCalledWith(50);
   });
 
-  // Assert greeter result
-  it("greets a user with `Hello, {name}` message", () => {
-    expect(hello).toBe(`Hello, ${name}`);
+  test("it calls generateCsv", async () => {
+    await getInvisibilityScore(30);
+
+    expect(generateCsv).toHaveBeenCalledWith(user, 30, 50, "Translucent");
   });
 });
