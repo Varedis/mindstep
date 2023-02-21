@@ -8,7 +8,7 @@ export default defineConfig({
     environment: "node",
     exclude: ["build/**", "**/node_modules/**"],
     coverage: {
-      provider: "istanbul",
+      provider: "c8",
     },
   },
 });
