@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
     "@types/jsonexport": "^3.0.2",
-    "@types/node": "~18",
+    "@types/node": "~18.16.9",
     "@typescript-eslint/eslint-plugin": "~5.39",
     "@typescript-eslint/parser": "~5.39",
     "@vitest/coverage-c8": "^0.28.5",
